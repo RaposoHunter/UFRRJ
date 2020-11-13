@@ -1,5 +1,3 @@
-const queryManager = require("../routes/queryManager");
-
 module.exports.query = (app, req, res) => {
     const operation = req.query.op;
 
