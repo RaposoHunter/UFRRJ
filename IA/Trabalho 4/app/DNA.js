@@ -47,4 +47,9 @@ class DNA extends Array
 
         return this;
     }
+
+    getFitness()
+    {
+        return this._fitness;
+    }
 }

@@ -28,19 +28,19 @@ class Population extends Array
     naturalSelection()
     {
         this._mating_pool = [];
-        const total_fitness = this.reduce((carry, dna) => carry + dna._fitness , 0);
+        const total_fitness = this.reduce((carry, dna) => carry + dna.getFitness() , 0);
 
         this.forEach((dna, index) => {
-            if(dna._fitness != 0) {
+            if(dna.getFitness() != 0) {
                 if(this._mating_pool.length === 0) {
                     this._mating_pool.push({
                         dna,
-                        prob: dna._fitness / total_fitness
+                        prob: dna.getFitness() / total_fitness
                     });
                 } else {
                     this._mating_pool.push({
                         dna,
-                        prob: Math.min(this._mating_pool.at(-1).prob + (dna._fitness / total_fitness), 1)
+                        prob: Math.min(this._mating_pool.at(-1).prob + (dna.getFitness() / total_fitness), 1)
                     });
                 }
             }
@@ -77,20 +77,30 @@ class Population extends Array
         let max_fitness = 0;
 
         this.forEach((dna) => {
-            if(dna._fitness > max_fitness) {
+            if(dna.getFitness() > max_fitness) {
                 this._best = getPhrase(dna);
-                max_fitness = dna._fitness;
+                max_fitness = dna.getFitness();
             }
 
-            if(dna._fitness >= this._perfect_score) {
+            if(dna.getFitness() >= this._perfect_score) {
                 this._finished = true;
             }
         });
     }
 
+    getMutationRate()
+    {
+        return this._mutation_rate;
+    }
+
+    getBest()
+    {
+        return this._best;
+    }
+
     getAverageFitness()
     {
-        return this.reduce((carry, dna) => carry + dna._fitness , 0) / this.length;
+        return this.reduce((carry, dna) => carry + dna.getFitness() , 0) / this.length;
     }
 
     isFinished()

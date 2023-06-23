@@ -5,7 +5,7 @@ const population = new Population(target, mutation_rate, population_size);
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('statistics__total__population').innerHTML = population.length;
-    document.getElementById('statistics__mutation__rate').innerHTML = (population._mutation_rate * 100) + '%';
+    document.getElementById('statistics__mutation__rate').innerHTML = (population.getMutationRate() * 100) + '%';
     
     const loop = setInterval(function () {
         population.naturalSelection();
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         population.calculateFitness();
         population.evaluate();
     
-        document.getElementById('statistics__best__phrase').innerHTML = population._best;
+        document.getElementById('statistics__best__phrase').innerHTML = population.getBest();
         document.getElementById('statistics__total__generations').innerHTML = population.generations;
         document.getElementById('statistics__average__fitness').innerHTML = population.getAverageFitness().toFixed(4);
 
